@@ -1,0 +1,17 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paired-items {
+  display: flex;
+}
+
+.save-btn {
+
+}
+
+.save-btn:hover {
+  cursor: pointer;
+}

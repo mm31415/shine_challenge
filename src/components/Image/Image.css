@@ -1,0 +1,29 @@
+.grid-img {
+  padding: 7px;
+  border-radius: 2px;
+  border: 1px solid lightgray;
+}
+
+.grid-img:hover {
+  cursor: pointer;
+  background: #7AC5CD;
+}
+
+.selected {
+  background: #98F5FF;
+}
+
+.img-btn {
+  position: relative;
+}
+
+.position {
+  border-radius: 10px;
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  padding: 5px;
+  background: #53868B;
+  color: white;
+  border: 1px solid black;
+}
