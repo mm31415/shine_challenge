@@ -9,7 +9,7 @@ export const mergeIdArrays = (arr1, arr2) => {
 };
 
 export const createImageObjArr = (arr1, arr2, clickCount) => {
-  const merged = mergeIdArrays(arr1, arr2, clickCount);
+  const merged = mergeIdArrays(arr1, arr2);
 
   return merged.map(id => ({ id, count: clickCount[id] }));
 };
