@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Image from 'Components/Image/Image';
+import Count from 'Components/Count/Count';
 import GridItem from './GridItem';
 import './Grid.css';
 
@@ -12,10 +13,12 @@ class Grid extends Component {
 
   updateTempSelected = (e) => {
     const { multiSelect } = this.state;
+    const { updateClickCount } = this.props;
     const id = parseInt(e.currentTarget.value);
     const existingIdx = multiSelect.indexOf(id);
-    debugger
     let newIds;
+
+    updateClickCount(id);
 
     if (existingIdx < 0) {
       newIds = [...multiSelect, id];
@@ -29,14 +32,15 @@ class Grid extends Component {
     this.setState({ multiSelect: newIds });
   }
 
-  gridItemRender(imageId) {
-    const { multiSelect } = this.state;
-    const selectedIdx = multiSelect.indexOf(imageId);
+  gridItemRender(image) {
+    const { multiSelect, tempCount } = this.state;
+    const { clickCount, images } = this.props;
+    const selectedIdx = multiSelect.indexOf(image.id);
 
     return (
       <GridItem>
         <Image
-          imgId={imageId}
+          imgId={image.id}
           onClick={this.updateTempSelected}
           position={selectedIdx >= 0 ? selectedIdx + 1 : undefined}
           selected={
@@ -44,20 +48,21 @@ class Grid extends Component {
             ? 'selected' : ''
           }
         />
+        <Count count={image.count} />
       </GridItem>
     );
   };
 
-  createGridItems() {
-    const { imageIds } = this.props;
+  createPairedItems() {
+    const { images } = this.props;
     const gridItems = [];
     let i = 0;
 
-    while (i < imageIds.length) {
+    while (i < images.length) {
       gridItems.push(
-        <li className="paired-items" key={imageIds[i]}>
-          { this.gridItemRender(imageIds[i]) }
-          { this.gridItemRender(imageIds[++i]) }
+        <li className="paired-items" key={images[i].id}>
+          { this.gridItemRender(images[i]) }
+          { this.gridItemRender(images[++i]) }
         </li>
       );
 
@@ -80,13 +85,11 @@ class Grid extends Component {
   render() {
     const { updateSelectedIds } = this.props;
     const { multiSelect } = this.state;
-    console.log(this.props.imageIds);
-    console.log(this.state.multiSelect);
 
     return (
-      <section>
+      <section className="grid-wrapper">
         <ul className="grid">
-          { this.createGridItems() }
+          { this.createPairedItems() }
         </ul>
         {
           multiSelect.length > 0
